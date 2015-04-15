@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+            http://www.springframework.org/schema/beans 
+           	http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+           	http://www.springframework.org/schema/context 
+           	http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+	
+	<context:property-placeholder  location="classpath:test1.properties"/>
+	<context:property-placeholder  location="classpath:test2.properties" order="0" local-override="true"/>
+	<!--  -->
+	<context:property-override location="classpath:beanOver.properties" ignore-unresolvable="true"/>
+	
+	<context:component-scan base-package="pers.bright.spring.annotation" />  
+<!-- 	<context:annotation-config /> -->
+<!-- 	<bean id="mytest" class="pers.bright.spring.annotation.MyAnnotationBean" /> -->
+	
+	<bean id="beanPostProcessor" class="pers.bright.spring.MyBeanPostProcessor">
+	</bean>
+
+	<bean id="instantiationAwareBeanPostProcessor" class="pers.bright.spring.MyInstantiationAwareBeanPostProcessor">
+	</bean>
+
+	<bean id="beanFactoryPostProcessor" class="pers.bright.spring.MyBeanFactoryPostProcessor">
+	</bean>
+	 
+	<bean id="person1" class="pers.bright.spring.Person" init-method="myInit"
+		destroy-method="myDestory" scope="singleton" p:name="张三" p:address="${JAVA_HOME}"
+		p:phone="15900000001" />
+	<bean id="person2" class="pers.bright.spring.Person" init-method="myInit"
+		destroy-method="myDestory" scope="singleton" p:name="李四" p:address="上海"
+		p:phone="002" />
+	<!--
+	<bean id="person1" class="pers.bright.spring.Person" init-method="myInit"
+		destroy-method="myDestory" scope="singleton" p:name="张三" p:address="广州"
+		p:phone="15900000001" />
+
+	<bean id="person3" class="pers.bright.spring.Person" init-method="myInit"
+		destroy-method="myDestory" scope="singleton" p:name="王五" p:address="北京"
+		p:phone="003" />
+	 -->
+</beans>

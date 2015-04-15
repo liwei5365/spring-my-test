@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<server>
+	<!-- example -->
+	<mbean code="com.asb.ponnbi.mbean.example.StartService" name="application.example:service=singletonService"/>
+	<!-- singleton deployer -->
+	<mbean code="com.asb.ponnbi.mbean.singleton.SingletonDeployer" name="application.ponnbi:service=singletonDeployer" />
+	<!-- test 	 -->
+    <mbean code="test.TestSingleton" name="application.test:service=startup-singleton">
+        <depends>application.ponnbi:service=singletonDeployer</depends> 
+        <depends>application.test:service=startup</depends>
+        <attribute name="serviceName">singletonService</attribute>
+    </mbean>
+    
+    <mbean code="test.Test" name="application.test:service=startup">
+        <attribute name="serviceName">BothService</attribute>
+    </mbean>
+    
+</server>
